@@ -7,11 +7,12 @@ pygame.display.set_caption('Pickaxe clicker')
 # funkcje
 def draw_object(object, x, y) :
     window.blit(object, (x, y)) # rysowanie objektu
-#def draw_hitbox(object, x, y, width, height) :
-
+def draw_hitbox(object) :
+        pygame.draw.rect(window, (93, 32, 32), object)
 
 # zmienne
-game_version = 0.5
+game_version = 0.6
+last_update = 23.01
 x_for_kilof = 400
 y_for_kilof = 400
 x_for_button1 = 1150
@@ -21,7 +22,7 @@ doswiadczenie = 0
 dodaj = 1
 
 # obiekty
-kilof = pygame.image.load("Kilof2.png")
+kilof = pygame.image.load("Kilof.png")
 width = kilof.get_width
 height = kilof.get_height
 button_upgrade1 = pygame.image.load("Button_upgrade.png")
@@ -41,7 +42,7 @@ while run:
         if event.type == pygame.QUIT:  # jeśli gracz zamknie okienko
             run = False
 
-    wersja = pygame.font.Font.render(pygame.font.SysFont("Freemono", 50), f"Version : {game_version}", True, (255, 200, 100)) # generowanie tekstu 3
+    wersja = pygame.font.Font.render(pygame.font.SysFont("Freemono", 50), f"Version : {game_version} | Last update : {last_update}", True, (255, 200, 100)) # generowanie tekstu 3
     tekst_doswiadczenie = pygame.font.Font.render(pygame.font.SysFont("Dyuthi", 72), f"Doswiadczenie : {doswiadczenie}", True, (100, 100, 100)) # generowanie tekstu
     if doswiadczenie > boost :
         Ulepszenie_boost = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Ulepszenie kilofa | Koszt : {boost}, Dostepne", True, (255, 255, 255)) # generowanie tekstu 2
@@ -51,8 +52,8 @@ while run:
     window.blit(tło, (0, 0))  # rysowanie tła
 
     # rysowanie hitboxów
-    pygame.draw.rect(window, (91, 36, 32), kilof_hitbox) # rysowanie hitboxu do kilofa
-    pygame.draw.rect(window, (90, 36, 32), button_upgrade1_hitbox) # rysowanie hitboxu do przycisku
+    draw_hitbox(kilof_hitbox) # rysowanie hitboxu do kilofa
+    draw_hitbox(button_upgrade1_hitbox) # rysowanie hitboxu do przycisku
       
     # rysowanie obiektów
     
@@ -84,3 +85,4 @@ while run:
 
     # wydrukuj
     pygame.display.update()
+
