@@ -76,7 +76,7 @@ while run:
             pygame.time.wait(200)
 
     if button_upgrade1_hitbox.collidepoint(pygame.mouse.get_pos()):
-        draw_object(button_upgrade1clicked, x_for_button1, y_for_button1)#window.blit(button_upgrade1clicked, (x_for_button1, y_for_button1)) # rysowanie przycisku
+        draw_object(button_upgrade1clicked, x_for_button1, y_for_button1) # rysowanie przycisku
         draw_object(Ulepszenie_boost, 1160, 135) # rysowanie tekstu 2
     else :
         draw_object(button_upgrade1,x_for_button1, y_for_button1) # rysowanie przycisku
