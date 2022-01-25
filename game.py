@@ -1,8 +1,11 @@
 import pygame
 
+icon = pygame.image.load("diamond_pickaxe.png")
+
 pygame.init()
 window = pygame.display.set_mode((1920, 1080))
 pygame.display.set_caption('Pickaxe clicker')
+pygame.display.set_icon(icon)
 
 # funkcje
 def draw_object(object, x, y) :
@@ -14,8 +17,8 @@ def draw_hitbox(object) :
 wytrzymałość_kilofa = 50
 max_wytrzymałość_kilofa = 50
 dodaj2 = 1
-game_version = "0.7.7"
-last_update = "24.01.2022"
+game_version = "0.7.8"
+last_update = "25.01.2022"
 x_for_kilof = 400
 y_for_kilof = 400
 x_for_button1 = 1150
@@ -24,7 +27,7 @@ boost = 1
 doswiadczenie = 0
 dodaj = 1
 max_dodaj = 1
-kilof_upgrade = 50
+kilof_upgrade = 100
 choosed_kilof = 1
 
 # obiekty
@@ -64,11 +67,15 @@ while run:
     text_kilof = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Kup kilof | Koszt : {kilof_upgrade}", True, (255, 255, 255)) # generowanie tekstu 
     text_WIP = pygame.font.Font.render(pygame.font.SysFont("Waree", 25), f"W I P (WORK IN PROGRESS)", True, (255, 255, 255)) # generowanie tekstu 2
     text_wytrzymałość_kilofa = pygame.font.Font.render(pygame.font.SysFont("Dyuthi", 50), f"Wytrzymalosc kilofa : {wytrzymałość_kilofa}", True, (255, 255, 255)) # generowanie tekstu 2
-    if doswiadczenie > kilof_upgrade2 :
-        text_kilof = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Kup kilof | Koszt : {kilof_upgrade}, Dostepne", True, (255, 255, 255)) # generowanie tekstu 2
-    else :
-        text_kilof = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Kup kilof | Koszt : {kilof_upgrade}, Niedostepne", True, (255, 255, 255)) # generowanie tekstu 2
-    
+    #text_record = pygame.font.Font.render(pygame.font.SysFont("Liberation Serif", 30), f"Record : ", True, (150, 150, 150))
+    if choosed_kilof > 0 and choosed_kilof < 5 : 
+        if doswiadczenie > kilof_upgrade2 :
+            text_kilof = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Kup kilof | Koszt : {kilof_upgrade}, Dostepne", True, (255, 255, 255)) # generowanie tekstu 2
+        else :
+            text_kilof = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Kup kilof | Koszt : {kilof_upgrade}, Niedostepne", True, (255, 255, 255)) # generowanie tekstu 2
+    elif choosed_kilof == 5 :
+        text_kilof = pygame.font.Font.render(pygame.font.SysFont("Sawasdee", 25), f"Nie ma wiecej dostepnych kilofow", True, (255, 255, 255)) # generowanie tekstu 2
+
     boost2 = boost - 1
     
     if doswiadczenie > boost2 :
@@ -81,11 +88,11 @@ while run:
     # rysowanie hitboxów
     draw_hitbox(kilof_hitbox) # rysowanie hitboxu do kilofa
     draw_hitbox(button_upgrade_hitbox) # rysowanie hitboxu do przycisku upgrade
-    draw_hitbox(button_upgrade2_hitbox) # rysowanie hitboxu do przycisku shop
+    draw_hitbox(button_upgrade2_hitbox) # rysowanie hitboxu do przycisku upgrade2
         
     # rysowanie obiektów
      
-    if choosed_kilof == 1 : draw_object(kilof, x_for_kilof, y_for_kilof)  # rysowanie kilofu
+    if choosed_kilof == 1 : draw_object(kilof, x_for_kilof, y_for_kilof) # rysowanie kilofu
     elif choosed_kilof == 2 : draw_object(kilof2, x_for_kilof, y_for_kilof)
     elif choosed_kilof == 3 : draw_object(kilof3, x_for_kilof, y_for_kilof)
     elif choosed_kilof == 4 : draw_object(kilof4, x_for_kilof, y_for_kilof)
@@ -98,6 +105,7 @@ while run:
     draw_object(text_kilof, 1165, 920)
     draw_object(text_WIP, 1200, 820)
     draw_object(text_wytrzymałość_kilofa, 250, 300)
+    #draw_object(text_record, 1400, 18)
     
     # sprawdzanie zdarzeń z myszką 
     kilof_upgrade2 = kilof_upgrade - 1
@@ -109,21 +117,31 @@ while run:
         dodaj2 = 1
         dodaj = max_dodaj   
 
-    if button_upgrade2_hitbox.collidepoint(pygame.mouse.get_pos()) and doswiadczenie > kilof_upgrade2 : # jeżeli mysz dotyka hitboxa                       
-        if pygame.mouse.get_pressed()[0]:                                                              # jeżeli naciśnieto lewy przycisk myszy             
-            doswiadczenie = doswiadczenie - kilof_upgrade                                                                                                                                                                                                                                           
-            if wytrzymałość_kilofa == 0 :                                                                                                                        
-                choosed_kilof = 1
-                dodaj = 0                                                                                                                                
-                dodaj2 = 0
-            else :                                                                                                                                                                                                                                                             
-                dodaj2 = 1                                                                                                         
-                max_wytrzymałość_kilofa = max_wytrzymałość_kilofa * 2
-                kilof_upgrade = kilof_upgrade * 2
-                choosed_kilof += 1                                                                                           
-            wytrzymałość_kilofa = max_wytrzymałość_kilofa 
+    if choosed_kilof > 0 and choosed_kilof < 5 :
+        if button_upgrade2_hitbox.collidepoint(pygame.mouse.get_pos()) and doswiadczenie > kilof_upgrade2 : # jeżeli mysz dotyka hitboxa                       
+            if pygame.mouse.get_pressed()[0]:                                                              # jeżeli naciśnieto lewy przycisk myszy             
+                doswiadczenie = doswiadczenie - kilof_upgrade                                                                                                                                                                                                                                           
+                if wytrzymałość_kilofa == 0 :                                                                                                                        
+                    choosed_kilof = 1
+                    kilof_upgrade = 100
+                    dodaj = 0                                                                                                                                
+                    dodaj2 = 0
+                    wytrzymałość_kilofa = max_wytrzymałość_kilofa
+                else :                                                                                                                                                                                                                                                             
+                    dodaj2 = 1
+                    choosed_kilof += 1
+                    max_wytrzymałość_kilofa = max_wytrzymałość_kilofa * 2
+                    kilof_upgrade = kilof_upgrade * 2
+                    wytrzymałość_kilofa = max_wytrzymałość_kilofa
+        pygame.time.wait(50)                    
+    else :
+        max_wytrzymałość_kilofa = 800
+        kilof_upgrade = 10000000000
+        if button_upgrade2_hitbox.collidepoint(pygame.mouse.get_pos()) and doswiadczenie > kilof_upgrade2 : # jeżeli mysz dotyka hitboxa                       
+            if pygame.mouse.get_pressed()[0]:                                                               # jeżeli naciśnieto lewy przycisk myszy
+                wytrzymałość_kilofa = max_wytrzymałość_kilofa
+        pygame.time.wait(50)
                                                                                                          
-
     if kilof_hitbox.collidepoint(pygame.mouse.get_pos()):
         if pygame.mouse.get_pressed()[0]:
             pygame.time.wait(100)
@@ -134,7 +152,7 @@ while run:
 
     if button_upgrade_hitbox.collidepoint(pygame.mouse.get_pos()) and doswiadczenie >  boost2:
         if pygame.mouse.get_pressed()[0]:
-            max_dodaj += 1
+            max_dodaj += choosed_kilof
             doswiadczenie = doswiadczenie - boost
             boost = boost * 2
             pygame.time.wait(100)
