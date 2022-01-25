@@ -1,3 +1,6 @@
+#Pickaxe clicker version 0.7.8
+#Created and developed by IliketoTranslate(ArturoProgramming)
+
 import pygame
 
 icon = pygame.image.load("diamond_pickaxe.png")
