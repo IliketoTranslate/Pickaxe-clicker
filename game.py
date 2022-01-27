@@ -5,8 +5,11 @@ import pygame
 
 icon = pygame.image.load("diamond_pickaxe.png")
 
+scren_weight = 1750
+scren_height = 984
+
 pygame.init()
-window = pygame.display.set_mode((1920, 1080))
+window = pygame.display.set_mode((scren_weight, scren_height))
 pygame.display.set_caption('Pickaxe clicker')
 pygame.display.set_icon(icon)
 
@@ -20,12 +23,14 @@ def draw_hitbox(object) :
 wytrzymałość_kilofa = 50
 max_wytrzymałość_kilofa = 50
 dodaj2 = 1
-game_version = "0.7.8"
-last_update = "25.01.2022"
+game_version = "0.2.1"
+last_update = "27.01.2022"
 x_for_kilof = 400
 y_for_kilof = 400
-x_for_button1 = 1150
-y_for_button1 = 100
+x_for_button1 = 1030
+y_for_button1 = 80
+x_for_button2 = 1030
+y_for_button2 = 800
 boost = 1
 doswiadczenie = 0
 dodaj = 1
@@ -47,8 +52,8 @@ tlo = pygame.image.load("tlo.png")
 
 # hitboxy
 kilof_hitbox = pygame.rect.Rect(x_for_kilof, y_for_kilof, 160, 160)  # tworzy hitbox do kilofa
-button_upgrade_hitbox = pygame.rect.Rect(1150, 100, 650, 100)   # tworzy hitbox do przycisku
-button_upgrade2_hitbox = pygame.rect.Rect(1150, 880, 550, 100)
+button_upgrade_hitbox = pygame.rect.Rect(x_for_button1, y_for_button1, 650, 100)   # tworzy hitbox do przycisku
+button_upgrade2_hitbox = pygame.rect.Rect(x_for_button2, y_for_button2, 650, 100)
 
 run = True
 
@@ -101,12 +106,12 @@ while run:
     elif choosed_kilof == 4 : draw_object(kilof4, x_for_kilof, y_for_kilof)
     elif choosed_kilof == 5 or choosed_kilof > 5 : draw_object(kilof5, x_for_kilof, y_for_kilof)
     draw_object(button_upgrade, x_for_button1, y_for_button1) # rysowanie przycisku
-    draw_object(button_upgrade2, 1150, 880) # rysowanie przycisku 2
+    draw_object(button_upgrade2, x_for_button2, y_for_button2) # rysowanie przycisku 2
     draw_object(text_doswiadczenie, 224, 100) # rysowanie tekstu
-    draw_object(text_ulepszenie, 1160, 135) # rysowanie tekstu 2
+    draw_object(text_ulepszenie, 1040, 110) # rysowanie tekstu 2
     draw_object(text_wersja, 10, 5) # rysowanie tekstu 3
-    draw_object(text_kilof, 1165, 920)
-    draw_object(text_WIP, 1200, 820)
+    draw_object(text_kilof, 1040, 840)
+    draw_object(text_WIP, 1170, 750)
     draw_object(text_wytrzymałość_kilofa, 250, 300)
     #draw_object(text_record, 1400, 18)
     
@@ -161,18 +166,18 @@ while run:
             pygame.time.wait(100)
 
     if button_upgrade2_hitbox.collidepoint(pygame.mouse.get_pos()):
-        draw_object(button_upgrade2_clicked, 1150, 880) # rysowanie przycisku
-        draw_object(text_kilof, 1165, 920) # rysowanie tekstu 2
+        draw_object(button_upgrade2_clicked, x_for_button2, y_for_button2) # rysowanie przycisku
+        draw_object(text_kilof, 1040, 840) # rysowanie tekstu 2
     else :
-        draw_object(button_upgrade2, 1150, 880) # rysowanie przycisku
-        draw_object(text_kilof, 1165, 920) # rysowanie tekstu 2
+        draw_object(button_upgrade2, x_for_button2, y_for_button2) # rysowanie przycisku
+        draw_object(text_kilof, 1040, 840) # rysowanie tekstu 2
 
     if button_upgrade_hitbox.collidepoint(pygame.mouse.get_pos()):
         draw_object(button_upgrade_clicked, x_for_button1, y_for_button1) # rysowanie przycisku
-        draw_object(text_ulepszenie, 1160, 135) # rysowanie tekstu 2
+        draw_object(text_ulepszenie, 1040, 110) # rysowanie tekstu 2
     else :
         draw_object(button_upgrade, x_for_button1, y_for_button1) # rysowanie przycisku
-        draw_object(text_ulepszenie, 1160, 135) # rysowanie tekstu 2
+        draw_object(text_ulepszenie, 1040, 110) # rysowanie tekstu 2
 
     # wydrukuj
     pygame.display.update()
